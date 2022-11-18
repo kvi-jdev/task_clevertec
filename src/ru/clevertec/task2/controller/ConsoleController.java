@@ -9,6 +9,7 @@ import ru.clevertec.task2.entity.car.passenger.PassengerCarImpl;
 import ru.clevertec.task2.entity.fuel.FuelType;
 import ru.clevertec.task2.service.CarServiceImpl;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ConsoleController {
@@ -105,18 +106,19 @@ public class ConsoleController {
                     //Cargo car capacity selection
                     System.out.println(MenuConst.ENTER_CARGO_CAPACITY);
                     System.out.print(MenuConst.CURSOR);
-                    int cargoCapacity = scanner.nextInt();
-                    boolean capacitySelected = selectCapacity(cargoCapacity);
-                    if (capacitySelected) {
+                    try {
+                        int cargoCapacity = scanner.nextInt();
                         car.setCargoCapacity(cargoCapacity);
-                    } else {
+                    } catch (InputMismatchException e) {
+                        System.out.println(MenuConst.WRONG_DATA);
                         addCarMenu();
                     }
+
                     //Cargo car body type selection
                     System.out.println(MenuConst.ENTER_BODY_TYPE);
                     System.out.print(MenuConst.CURSOR);
                     int bodyType = scanner.nextInt();
-                    CargoCarBodyType cargoCarBodyType = selectBodyType(bodyType);
+                    CargoCarBodyType cargoCarBodyType = carServiceImpl.selectBodyType(bodyType);
                     if (cargoCarBodyType != null) {
                         car.setBodyType(cargoCarBodyType);
                     } else {
@@ -130,43 +132,39 @@ public class ConsoleController {
                     //Passenger car capacity selection
                     System.out.println(MenuConst.ENTER_PASSENGER_CAPACITY);
                     System.out.print(MenuConst.CURSOR);
-                    int passCapacity = scanner.nextInt();
-                    boolean capacitySelected = selectCapacity(passCapacity);
-                    if (capacitySelected) {
+                    try {
+                        int passCapacity = scanner.nextInt();
                         car.setPassengerCapacity(passCapacity);
-                    } else {
+                    }catch (InputMismatchException e) {
+                        System.out.println(MenuConst.WRONG_NUMBER);
                         addCarMenu();
                     }
+
+
                     addCar(car);
                 }
                 case MenuConst.THREE -> {
                     GeneralCar car = new GeneralCar();
                     car.setCarType(CarType.GENERAL);
-                    //General car passengers capacity selection
+                    //General car passengers & cargo capacity selection
                     System.out.println(MenuConst.ENTER_PASSENGER_CAPACITY);
                     System.out.print(MenuConst.CURSOR);
-                    int passCapacity = scanner.nextInt();
-                    boolean capacitySelected = selectCapacity(passCapacity);
-                    if (capacitySelected) {
+                    try {
+                        int passCapacity = scanner.nextInt();
                         car.setPassengerCapacity(passCapacity);
-                    } else {
-                        addCarMenu();
-                    }
-                    //General car cargo capacity selection
-                    System.out.println(MenuConst.ENTER_CARGO_CAPACITY);
-                    System.out.print(MenuConst.CURSOR);
-                    int cargoCapacity = scanner.nextInt();
-                    boolean cargoCapacitySelected = selectCapacity(cargoCapacity);
-                    if (cargoCapacitySelected) {
+                        System.out.println(MenuConst.ENTER_CARGO_CAPACITY);
+                        System.out.print(MenuConst.CURSOR);
+                        int cargoCapacity = scanner.nextInt();
                         car.setCargoCapacity(cargoCapacity);
-                    } else {
+                    }catch (InputMismatchException e) {
+                        System.out.println(MenuConst.WRONG_NUMBER);
                         addCarMenu();
                     }
                     //General car body type selection
                     System.out.println(MenuConst.ENTER_BODY_TYPE);
                     System.out.print(MenuConst.CURSOR);
                     int bodyType = scanner.nextInt();
-                    CargoCarBodyType cargoCarBodyType = selectBodyType(bodyType);
+                    CargoCarBodyType cargoCarBodyType = carServiceImpl.selectBodyType(bodyType);
                     if (cargoCarBodyType != null) {
                         car.setBodyType(cargoCarBodyType);
                     } else {
@@ -182,42 +180,7 @@ public class ConsoleController {
         }
     }
 
-    private CargoCarBodyType selectBodyType(int idBodyType) {
-        try {
-           String bodyType = String.valueOf(idBodyType);
-            switch (bodyType) {
-                case MenuConst.ONE -> {
-                    return CargoCarBodyType.CISTERN;
-                }
-                case MenuConst.TWO -> {
-                    return CargoCarBodyType.TENT;
-                }
-                case MenuConst.THREE -> {
-                    return CargoCarBodyType.FRIDGE;
-                }
-                default -> {
-                    System.out.println(MenuConst.WRONG_NUMBER);
-                    return null;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(MenuConst.WRONG_NUMBER);
-            return null;
-        }
 
-    }
-
-    private boolean selectCapacity(int capacity) {
-        boolean result = true;
-        try {
-            GeneralCar car = new GeneralCar();
-            car.setCargoCapacity(capacity);
-        } catch (Exception e) {
-            System.out.println(MenuConst.WRONG_DATA);
-            result = false;
-        }
-        return result;
-    }
 
     private void addCar(Car car) {
         Scanner scanner = new Scanner(System.in);

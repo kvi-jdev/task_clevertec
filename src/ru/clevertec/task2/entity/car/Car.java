@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public abstract class Car implements CommonCar {
 
-    private static int carCount = 0;
+    private static int carCount = 1;
 
     private int id;
 
@@ -30,8 +30,8 @@ public abstract class Car implements CommonCar {
     private List<Order> orderList;
 
     public Car() {
-        carCount++;
         this.id = carCount;
+        carCount++;
     }
 
     public Car(CarType carType, String brand, String model, int issueYear, FuelType fuelType, int fuelVolume) {
@@ -41,8 +41,8 @@ public abstract class Car implements CommonCar {
         this.issueYear = issueYear;
         this.fuelType = fuelType;
         this.fuelVolume = fuelVolume;
-        carCount++;
         this.id = carCount;
+        carCount++;
     }
 
     public CarType getCarType() {
