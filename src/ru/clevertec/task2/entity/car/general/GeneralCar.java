@@ -1,5 +1,6 @@
 package ru.clevertec.task2.entity.car.general;
 
+import ru.clevertec.task2.controller.MenuConst;
 import ru.clevertec.task2.entity.car.Car;
 import ru.clevertec.task2.entity.car.CarType;
 import ru.clevertec.task2.entity.car.cargo.CargoCar;
@@ -17,9 +18,8 @@ public class GeneralCar extends Car implements CargoCar, PassengerCar {
 
 
     public GeneralCar(CarType carType, String brand, String model, CargoCarBodyType bodyType,
-                      int issueYear, FuelType fuelType, int fuelConsumption,
-                      int passengerCapacity, int cargoCapacity) {
-        super(carType, brand, model, issueYear, fuelType, fuelConsumption);
+                      int issueYear, FuelType fuelType, int passengerCapacity, int cargoCapacity) {
+        super(carType, brand, model, issueYear, fuelType);
         this.passengerCapacity = passengerCapacity;
         this.cargoCapacity = cargoCapacity;
         this.bodyType = bodyType;
@@ -54,23 +54,39 @@ public class GeneralCar extends Car implements CargoCar, PassengerCar {
 
     @Override
     public void addCargo(int numberOfCargo) {
-        this.cargoCapacity += numberOfCargo;
+        int numberOfUnitsCargo = getNumberOfUnitsCargo();
+        if ((numberOfUnitsCargo + numberOfCargo) > cargoCapacity) {
+            System.out.println(MenuConst.TOO_MUCH_UNITS);
+            cargoLeft();
+        } else {
+            System.out.println(numberOfCargo + " кг. груза добавлено!");
+            cargoLeft();
+            this.updateNumberOfUnitsCargo(numberOfCargo);
+        }
     }
 
     @Override
     public void cargoLeft() {
-        int left = this.cargoCapacity - this.getNumberOfUnits();
+        int left = this.cargoCapacity - this.getNumberOfUnitsCargo();
         System.out.println("Осталось свободного места под грузы: " + left);
     }
 
     @Override
     public void addPassenger(int numberOfPassengers) {
-        this.passengerCapacity += numberOfPassengers;
+        int numberOfUnits = this.getNumberOfUnitsPass();
+        if ((numberOfUnits + numberOfPassengers) > passengerCapacity) {
+            System.out.println(MenuConst.TOO_MUCH_UNITS);
+            passengersLeft();
+        } else {
+            System.out.println(numberOfPassengers + " чел. добавлены!");
+            passengersLeft();
+            this.updateNumberOfUnitsPass(numberOfPassengers);
+        }
     }
 
     @Override
     public void passengersLeft() {
-        int left = passengerCapacity - this.getNumberOfUnits();
+        int left = passengerCapacity - this.getNumberOfUnitsPass();
         System.out.println("Осталось свободных мест: " + left);
     }
 

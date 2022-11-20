@@ -1,5 +1,6 @@
 package ru.clevertec.task2.entity.car.cargo;
 
+import ru.clevertec.task2.controller.MenuConst;
 import ru.clevertec.task2.entity.car.Car;
 import ru.clevertec.task2.entity.car.CarType;
 import ru.clevertec.task2.entity.fuel.FuelType;
@@ -10,9 +11,9 @@ public class CargoCarImpl extends Car implements CargoCar {
 
     private CargoCarBodyType bodyType;
 
-    public CargoCarImpl(CarType carType, String brand, String model, CargoCarBodyType bodyType, int issueYear,
-                        FuelType fuelType, int fuelConsumption, int cargoCapacity) {
-        super(carType, brand, model, issueYear, fuelType, fuelConsumption);
+    public CargoCarImpl(CarType carType, String brand, String model, CargoCarBodyType bodyType,
+                        int issueYear, FuelType fuelType, int cargoCapacity) {
+        super(carType, brand, model, issueYear, fuelType);
         this.cargoCapacity = cargoCapacity;
         this.bodyType = bodyType;
     }
@@ -38,12 +39,21 @@ public class CargoCarImpl extends Car implements CargoCar {
 
     @Override
     public void addCargo(int numberOfCargo) {
-        this.setNumberOfUnits(numberOfCargo);
+        int numberOfUnitsCargo = getNumberOfUnitsCargo();
+        if ((numberOfUnitsCargo + numberOfCargo) > cargoCapacity) {
+            System.out.println(MenuConst.TOO_MUCH_UNITS);
+            cargoLeft();
+        } else {
+            System.out.println(numberOfCargo + " кг. груза добавлено!");
+            cargoLeft();
+            this.updateNumberOfUnitsCargo(numberOfCargo);
+        }
+
     }
 
     @Override
     public void cargoLeft() {
-        int left = this.cargoCapacity - this.getNumberOfUnits();
+        int left = this.cargoCapacity - this.getNumberOfUnitsPass();
         System.out.println("Осталось свободного места под грузы: " + left);
     }
 

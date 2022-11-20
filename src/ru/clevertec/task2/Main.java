@@ -7,14 +7,15 @@ import ru.clevertec.task2.entity.car.cargo.CargoCarImpl;
 import ru.clevertec.task2.entity.car.passenger.PassengerCarImpl;
 import ru.clevertec.task2.entity.fuel.FuelType;
 import ru.clevertec.task2.service.CarServiceImpl;
+import ru.clevertec.task2.service.OrderServiceImpl;
 
 public class Main {
 
     public static void main(String[] args) {
 
         CarServiceImpl carServiceImpl = new CarServiceImpl();
-        ConsoleController controller = new ConsoleController();
-        controller.setCarService(carServiceImpl);
+        OrderServiceImpl orderService = new OrderServiceImpl();
+        ConsoleController controller = new ConsoleController(carServiceImpl, orderService);
         controller.start();
 
         /*CarServiceImpl carService = new CarServiceImpl();

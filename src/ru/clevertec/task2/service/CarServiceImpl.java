@@ -3,7 +3,6 @@ package ru.clevertec.task2.service;
 import ru.clevertec.task2.controller.MenuConst;
 import ru.clevertec.task2.entity.car.Car;
 import ru.clevertec.task2.entity.car.cargo.CargoCarBodyType;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class CarServiceImpl implements RequestService<Car> {
     }
 
     @Override
-    public void readAll() {
+    public List<Car> readAll() {
         List<Car> cars = getCarList();
         if (cars.size() > 0) {
             for (Car car : cars) {
@@ -47,6 +46,7 @@ public class CarServiceImpl implements RequestService<Car> {
         } else {
             System.out.println(MenuConst.CAR_LIST_EMPTY);
         }
+        return cars;
     }
 
     public CargoCarBodyType selectBodyType(int idBodyType) {
@@ -71,6 +71,6 @@ public class CarServiceImpl implements RequestService<Car> {
             System.out.println(MenuConst.WRONG_NUMBER);
             return null;
         }
-
     }
+
 }

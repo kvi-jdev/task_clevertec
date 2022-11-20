@@ -1,9 +1,6 @@
 package ru.clevertec.task2.entity.car;
 
 import ru.clevertec.task2.entity.fuel.FuelType;
-import ru.clevertec.task2.entity.order.Order;
-
-import java.util.List;
 import java.util.Objects;
 
 public abstract class Car implements CommonCar {
@@ -25,24 +22,24 @@ public abstract class Car implements CommonCar {
     private int fuelVolume = 10;
 
 
-    private int numberOfUnits = 0;
+    private int numberOfUnitsPass = 0;
 
-    private List<Order> orderList;
+
+
+    private int numberOfUnitsCargo = 0;
 
     public Car() {
         this.id = carCount;
         carCount++;
     }
 
-    public Car(CarType carType, String brand, String model, int issueYear, FuelType fuelType, int fuelVolume) {
+    public Car(CarType carType, String brand, String model, int issueYear, FuelType fuelType) {
         this.carType = carType;
         this.brand = brand;
         this.model = model;
         this.issueYear = issueYear;
         this.fuelType = fuelType;
-        this.fuelVolume = fuelVolume;
-        this.id = carCount;
-        carCount++;
+
     }
 
     public CarType getCarType() {
@@ -90,47 +87,43 @@ public abstract class Car implements CommonCar {
     }
 
     public void setFuelVolume(int fuelVolume) {
+        this.fuelVolume = fuelVolume;
+    }
+
+    public void updateFuelVolume(int fuelVolume) {
         this.fuelVolume += fuelVolume;
     }
 
-    public List<Order> getOrderList() {
-        return orderList;
+    public int getNumberOfUnitsPass() {
+        return numberOfUnitsPass;
     }
 
-    public int getNumberOfUnits() {
-        return numberOfUnits;
+    public void setNumberOfUnitsPass(int numberOfUnitsPass) {
+        this.numberOfUnitsPass = numberOfUnitsPass;
     }
 
-    public void setNumberOfUnits(int numberOfUnits) {
-        this.numberOfUnits += numberOfUnits;
+    public int getNumberOfUnitsCargo() {
+        return numberOfUnitsCargo;
     }
 
-    public int getId() {
-        return id;
+    public void setNumberOfUnitsCargo(int numberOfUnitsCargo) {
+        this.numberOfUnitsCargo = numberOfUnitsCargo;
     }
 
-    private void setId(int id) {
-        this.id = id;
+    public void updateNumberOfUnitsPass(int numberOfUnits) {
+        this.numberOfUnitsPass += numberOfUnits;
     }
 
-    public boolean addOrder(Car car, Order order) {
-        boolean b = checkOrder(car, order);
-        if (b) {
-            car.orderList.add(order);
-        }
-        return b;
-
+    public void updateNumberOfUnitsCargo(int numberOfUnits) {
+        this.numberOfUnitsCargo += numberOfUnits;
     }
 
-    private boolean checkOrder(Car car, Order order) {
-        boolean result = true;
-        for (Order value : orderList) {
-            if (value.getLocalDate().isEqual(order.getLocalDate())) {
-                result = false;
-            }
+    public void addCargo(int numberOfUnits) {
+        this.numberOfUnitsCargo += numberOfUnits;
+    }
 
-        }
-        return result;
+    public void addPassenger(int numberOfUnits) {
+        this.numberOfUnitsPass += numberOfUnits;
     }
 
     @Override

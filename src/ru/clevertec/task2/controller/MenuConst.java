@@ -1,5 +1,7 @@
 package ru.clevertec.task2.controller;
 
+import java.time.LocalDate;
+
 public class MenuConst {
 
     private MenuConst(){
@@ -30,13 +32,49 @@ public class MenuConst {
 
     public static final String CAR_NOT_DELETED = "\nОшибка! Машина не удалена!\n";
 
-    public static final String ENTER_CARGO_CAPACITY = "\nВведите вместимость грузов (кг)\n";
+    public static final String ENTER_CARGO_CAPACITY = "\nВведите вместимость грузов (кг):";
 
-    public static final String ENTER_PASSENGER_CAPACITY = "\nВведите вместимость пассажиров (чел)\n";
+    public static final String UPDATE_CARGO = "\nВведите количество груза для добавления (кг):";
+
+    public static final String UPDATE_PASS = "\nВведите количество пассажиров для добавления (чел):";
+
+    public static final String ENTER_PASSENGER_CAPACITY = "\nВведите вместимость пассажиров (чел):";
+
+    public static final String ENTER_FUEL_VOLUME = "\nВведите  количество топлива для заправки (л):";
+
+    public static final String ORDER_CONFIRMED = "\nЗаказ успешно оформлен!\n";
+
+    public static final String ORDER_NOT_CONFIRMED = "\nОшибка! Заказ не оформлен";
+
+    public static final String TOO_MUCH_UNITS = "\nОшибка! автомобиль столько не вмещает!";
+
+    public static final String DATE_NOT_PASSED = "\nОшибка! Введите дату после " + LocalDate.now();
+
+    public static final String LIST_ORDER_MENU = "\nСписок заказов:\n";
+
+    public static final String ENTER_ARRIVAL = "\nВведите пункт назначения (название города):";
+
+    public static final String ENTER_DATE =  """
+                        
+            Введите желаемую дату отправки в формате:
+                        [дд.мм.гггг]""";
+
+    public static final String ADD_CARGO_PASS =  """
+                        
+            Введите 1 для добавления груза/пассажиров в заказ
+            Введите 2 для выхода в меню""";
+
+    public static final String CHOOSE_CAR = """
+                        
+            Введите id машины для оформления заказа:""";
+
+    public static final String CHOOSE_ORDER = """
+                        
+            Введите id заказа для обновления:""";
 
     public static final String ENTER_BODY_TYPE = """
                         
-                Выберите тип кузова         
+                - Выберите тип кузова -
             Введите 1 для кузова-цистерны
             Введите 2 для кузова-тента
             Введите 3 для кузова-холодильника""";
@@ -46,6 +84,12 @@ public class MenuConst {
     public static final String PETROL = "бензин";
 
     public static final String GAS = "метан";
+
+    public static final String CARGO = "Грузовой";
+
+    public static final String PASSENGER = "Пассажирский";
+
+    public static final String CARGO_PASSENGER = "Грузо-пассажирский";
 
     public static final String MAIN_MENU = """
                         
@@ -62,9 +106,27 @@ public class MenuConst {
             Введите 3 для выхода в главное меню""";
 
     public static final String USER_MENU = """
-                        
-            ---- Добавление заказа ----
-            Введите exit для выхода в главное меню""";
+            
+            Введите 1 для работы с заказами
+            Введите 2 для работы с машинами
+            Введите 3 для выхода в главное меню""";
+
+    public static final String USER_CAR_MENU = """
+            
+            Введите 1 для заправки машины
+            Введите 2 для ремонта машины
+            Введите 3 для выхода в меню""";
+
+    public static final String USER_ORDER_MENU = """
+            
+            Введите 1 для оформления нового заказа
+            Введите 2 для просмотра списка заказов
+            Введите 3 для выхода в меню""";
+
+    public static final String CREATE_ORDER_MENU = """
+            
+              - Меню оформления заказа -
+            Введите пункт отправки заказа (название города)""";
 
     public static final String ADD_CAR_MENU = """
                         
@@ -78,9 +140,19 @@ public class MenuConst {
             Введите id машины для удаления
             Введите exit для выхода в меню""";
 
+    public static final String CAR_REPAIR_MENU = """
+                        
+            Введите id машины для ремонта
+            Введите exit для выхода в меню""";
+
+    public static final String CAR_REFUEL_MENU = """
+                        
+            Введите id машины для заправки
+            Введите exit для выхода в меню""";
+
     public static final String LINE_ADD_CAR = """
                         
             Введите данные по машине в формате:
-            бренд,модель,год выпуска, вид топлива (дизель/бензин/метан)
+            [бренд,модель,год выпуска, вид топлива (дизель/бензин/метан)]
             Значения допускается разделять любым сиволом (не буквой и не цифрой)""";
 }

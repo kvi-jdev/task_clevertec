@@ -1,5 +1,6 @@
 package ru.clevertec.task2.entity.car.passenger;
 
+import ru.clevertec.task2.controller.MenuConst;
 import ru.clevertec.task2.entity.car.Car;
 import ru.clevertec.task2.entity.car.CarType;
 import ru.clevertec.task2.entity.fuel.FuelType;
@@ -9,13 +10,13 @@ public class PassengerCarImpl extends Car implements PassengerCar {
     private int passengerCapacity;
 
 
-    public PassengerCarImpl(CarType carType, String brand, String model, int issueYear, FuelType fuelType,
-                            int fuelConsumption, int passengerCapacity) {
-        super(carType, brand, model, issueYear, fuelType, fuelConsumption);
+    public PassengerCarImpl(CarType carType, String brand, String model, int issueYear,
+                            FuelType fuelType, int passengerCapacity) {
+        super(carType, brand, model, issueYear, fuelType);
         this.passengerCapacity = passengerCapacity;
     }
 
-    public PassengerCarImpl(){
+    public PassengerCarImpl() {
 
     }
 
@@ -30,12 +31,20 @@ public class PassengerCarImpl extends Car implements PassengerCar {
 
     @Override
     public void addPassenger(int numberOfPassengers) {
-        this.setNumberOfUnits(numberOfPassengers);
+        int numberOfUnits = this.getNumberOfUnitsPass();
+        if ((numberOfUnits + numberOfPassengers) > passengerCapacity) {
+            System.out.println(MenuConst.TOO_MUCH_UNITS);
+            passengersLeft();
+        } else {
+            System.out.println(numberOfPassengers + " чел. добавлены!");
+            passengersLeft();
+            this.updateNumberOfUnitsPass(numberOfPassengers);
+        }
     }
 
     @Override
     public void passengersLeft() {
-        int left = passengerCapacity - this.getNumberOfUnits();
+        int left = passengerCapacity - this.getNumberOfUnitsPass();
         System.out.println("Осталось свободных мест: " + left);
     }
 

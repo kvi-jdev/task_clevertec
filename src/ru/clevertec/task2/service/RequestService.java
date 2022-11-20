@@ -8,5 +8,5 @@ public interface RequestService<T> {
 
     boolean delete (int id);
 
-    void readAll();
+    List<T> readAll();
 }
